@@ -1,0 +1,111 @@
+% ICP transparent plastic part
+% face down; adjust to upper two holes: 1: -105.9;96.55 2: -29.54;86.76
+% origin: lower right
+% right edge is x0, so negative x values are area over plastic
+% IJ must be set to relative in Config->General Config
+% clamp is expected at top, over button cutouts
+% requires 5mm end mill
+% watch simulation first before committing to manufacturing!
+% USE AT OWN RISK!
+G21 G90 G40
+G1 F60
+G0
+% DRILL 2,5mm
+x 0     y 0     z 40
+m1 (start)                  % Mounting holes for ICP Front Panel 2x (will be threaded to M3)
+x-13.45 y 37.74  z 10
+m1 (drill dia 2,5)          % Mount 4
+x-92.65 y 31.32
+m1 (drill dia 2,5)          % Mount 3
+
+% extra holes for DCS mount (will be threaded to M3)
+% center at 
+% x-53.3     y 12.2   z 2
+x-44.9 y 20.7
+m1 (drill dia 2,5)
+x-61.9 y 20.7
+m1 (drill dia 2,5)
+x-61.9 y 3.7
+m1 (drill dia 2,5)
+x-44.9 y 3.7
+m1 (drill dia 2,5)
+
+X0  Y0  Z40                 
+M1 (TOOL CHANGE 5mm ENDMILL)
+M98 P11
+            Z40
+F85
+M1 (Stop here if no deburr run is needed)
+M98 P11
+
+M5                  Z 40
+M30
+
+
+O11
+x-102.75    y 82.3      % FLIR line
+G0                  Z 1     
+G1                  Z-1.3
+            y 31
+G0                  Z 1
+x-113.13                % GAIN incursion
+G1                  Z-1.3
+            y 28.5
+G0                  Z 1
+x-102.75
+G1                  Z-1.3
+            y 6
+            y 12.7
+x-91.33                 % NORM
+G0                  Z 1
+            y 21.91
+G1                  Z-1.3
+x-71.33                 % DRIFT C/O
+G0                  Z 1
+            y 2.99
+G1                  Z-1.3
+x-91.33                 % WARN RESET
+G0                  Z 1
+% ............................
+x-82.3 y 12.2         % Drift C/O screw nut cutout
+                    z-2.6
+G1
+G12 I5.75               % FOR 5MM ENDMILL ONLY!
+G0                  z 5
+% ............................
+x-113.13    y 6               
+G1                  Z-1.3 
+            y 12      % AUTO
+G0                  Z 1
+% ............................
+x-113.63    y 20.2      % FLIR Gain screw nut cutout
+G1                  z-2.6 
+G12 I5.75               % FOR 5MM ENDMILL ONLY!
+G0                  z 1
+% ............................
+x-123.25
+G1                  Z-1.3 
+            y 82     % LVL, CONT, RECT DEPR
+G0 z 20
+x-52.93     y 12.45   z 30
+            y 21.95     % Arrow
+z2
+G1                  z-1.3
+G0                  z 1
+            y 2.99      % Arrow (should be 2.3, but cuts through edge)
+G1                  z-1.3
+G0                  z 1
+x-43.43     y 12.45     % RET
+G1                  z-1.3
+x-40.43
+G0                  z 1
+x-62.43     y 12.45     % SEQ
+G1                  z-1.3
+x-65.43
+G0                  Z 1
+x-12.5      y 9
+G1                  Z-1.3
+            y 83        % OFF, BRT, ICP, SYM
+G0                  Z 40
+M99
+%last line

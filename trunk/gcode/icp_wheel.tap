@@ -1,0 +1,194 @@
+% ICP Wheel
+% origin *center*
+% IJ must be set to relative in Config->General Config !
+% clamps are expected left and  right, all outside working area
+% requires D5 set to 5mm end mill
+% watch simulation first before committing to manufacturing!
+% USE AT OWN RISK!
+G21 G90 G40
+G0
+X 0 Y 0 Z 40
+G1 F90
+G43 H100
+G0
+% every 15 deg dent
+% diameter 37.5 mm with drill 3.5mm
+
+%todo:  add second roundtrip for deburr
+%       don't drill completely through center
+%       more steps, since alu and thicker material
+%-------------------
+% first round center drill
+%-------------------
+M1 (TOOL center drill ready)    % center drill (D100)
+X 0     Y 19.9  Z 2
+G81 R1 Z-2 
+M98 P80
+G80
+G0 x-2 Z60
+G43 H135
+M1 (TOOL CHANGE 3,5mm drill)    % center drill (D135)
+%-------------------
+% second round drill
+%-------------------
+X 0     Y 19.9  Z 2
+G83 R1 Z-10 Q 4
+M98 P80
+G80
+G0 x-2 Z 20
+G43 H101
+M1 (TOOL CHANGE counter sink)   % center drill (D101)
+%-------------------
+% third round counter sink
+%-------------------
+X 0     Y 19.9  Z2
+F40
+G81 R1 Z-2
+M98 P80
+G80
+
+G0 X 0  Y 0 Z 60
+M1 (TOOL CHANGE 2mm drill)
+G43 H 120
+G0 Z 2
+m1 (place drill on surface)
+G81 R 1 Z-10
+G80
+G0 Z 60
+M1 (TOOL CHANGE 5mm end mill)
+%-------------------
+% center hole 6mm with 5mm shaft mill
+%-------------------
+        Z 2
+G1 F40  Z-2
+G12 I 1.0
+        Z-4
+G12 I 1.0
+        Z-6
+G12 I 1.0        
+G0      Z 2
+%-------------------
+% cut out       with 5mm shaft mill
+%-------------------
+G0 X 5  Y 25 Z 2
+M1 ( apply fixture )
+G42 D5
+X 0 Y 18.75
+G1 f60              Z 0
+G03 X-18.75 Y 0 z-1 J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 z-2   I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0 z-3 J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 z-4   I-18.75
+
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+
+G03 X-18.75 Y 0 z-5 J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 z-6   I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0 z-7 J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 z-8   I-18.75
+
+
+G03 X-18.75 Y 0     J-18.75
+G03 X 0     Y-18.75 I 18.75
+G03 X 18.75 Y 0     J 18.75
+G03 X 0     Y 18.75 I-18.75
+
+
+
+G0              Z 2
+G40
+X 0 Y 0 Z 80
+
+M5
+M30
+
+O80
+%                   quad 1
+X 5.2   Y 19.2
+
+X 10    Y 17.2
+
+X 14.1  Y 14.1
+
+X 17.2  Y 10
+
+X 19.2  Y 5.2
+
+%                   quad 2
+X 19.9  Y 0
+
+X 19.2  Y-5.2
+
+X 17.2  Y-10
+
+X 14.1  Y-14.1
+
+X 10    Y-17.2
+
+X 5.2   Y-19.2
+
+%                   quad 3
+X 0     Y-19.9
+
+X-5.2   Y-19.2
+
+X-10    Y-17.2
+
+X-14.1  Y-14.1
+
+X-17.2  Y-10
+
+X-19.2  Y-5.2
+
+%                   quad 4
+X-19.9  Y 0
+
+X-19.2  Y 5.2
+
+X-17.2  Y 10
+
+X-14.1  Y 14.1
+
+X-10    Y 17.2
+
+X-5.2   Y 19.2
+M99
+
+
+%end of file

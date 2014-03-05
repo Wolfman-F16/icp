@@ -1,0 +1,71 @@
+% origin lower left; front up (copper visible)
+% clamps are expected outside working area
+% start with 3,2 mm drill
+% watch simulation first before committing to manufacturing!
+% USE AT YOUR OWN RISK!
+G21 G90 G40
+G0
+x 0     y 0     z 40
+m1 (start)
+x 12.5 y 12.5 z 10
+M1 (drill 3,2 mm)
+x 0 y 0 z 60
+M1 (TOOL CHANGE 3.5mm)
+G43 H135
+x 4 y 21 z 2
+M1 (drill 3,5 mm)
+x 4  y 4 
+M1 (drill 3,5 mm)
+x 21 y 4
+M1 (drill 3,5 mm)
+x 21 y 21
+M1 (drill 3,5 mm)
+x 0 y 0 z 40
+M1 (TOOL CHANGE 1.3mm) % use center drill
+G90 x 3.5 y 12.5 z 10
+M98 P02
+G90 x 12.5 y 21.5
+G68 R270
+M98 P02
+G69
+G90 x 21.5 y 12.5
+G68 R180
+M98 P02
+G69
+G90 x 12.5 y 3.5
+G68 R90
+M98 P02
+G69
+G90 x 0 y 0 z 40
+
+M1 (TOOL CHANGE 4mm ENDMILL)
+%outer contour 25x25; clamp expected on the LEFT side
+x-2 y-2 z 2
+G1 F60
+z-2
+x 27
+      y 27
+x-2
+G0      z 40
+m5
+m30
+% end of program
+
+O02
+G91
+x-1.25 y-3.5
+G81 R1 z-2 F 80
+G80
+x 0 y 7
+G81 R1 z-2
+G80
+x 2.5 y-1.25
+G81 R1 z-2
+G80
+x 0 y-4.5
+G81 R1 z-2
+G80
+x-1.25 y 2.25
+
+m99
+%last line

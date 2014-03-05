@@ -1,0 +1,260 @@
+% origin lower left; front up (copper visible)
+% IJ must be set to relative in Config->General Config !
+% clamps are expected left and  right, where right is outside working area (more than 140mm to right)
+% requires D2 set to 2mm end mill
+% watch simulation first before committing to manufacturing!
+% USE AT YOUR OWN RISK!
+G21 G90 G40
+G0
+% START WITH 4mm DRILL
+%
+% top right hole : 21,5 from right inner edge 
+%                  3,6 from top edge
+% lower left hole: 21,5 from left inner edge 
+%                  13,6 from top edge
+%
+x 0     y 0     z 40
+m1 (start)          
+%---------------------------
+% Mounting holes for ICP 4x M4
+%---------------------------
+x 5     y 5     z 5
+m1 (drill dia 4)
+x 131   y 5
+m1 (drill dia 4)
+                Z 20       % not needed if clamp is out of area
+x 131   y 95
+                z 5
+m1 (drill dia 4)
+x 5     y 95
+m1 (drill dia 4)
+% tool change
+                Z 20
+x 30    y 50    Z 40
+M1 (Tool change 3,5mm Drill)
+%---------------------------
+% Mounting holes for PCBs M3
+%---------------------------
+x 29.54  y 86.75    z 5
+m1 (drill dia 3,5)          % Mount 2
+x 106 y 97
+m1 (drill dia 3,5)          % Mount 1
+x 92.65 y 31.32
+m1 (drill dia 3,5)          % Mount 3
+x 13.45 y 37.74
+m1 (drill dia 3,5)          % Mount 4
+x 24.55 y 13.6              % Rocker switch mount hole
+M1 (drill dia 3,5)
+% x-53.3     y 12.2   z 2 %DCS mount holes
+x 44.9 y 20.7
+m1 (drill dia 3,5)
+x 61.9 y 20.7
+m1 (drill dia 3,5)
+x 61.9 y 3.7
+m1 (drill dia 3,5)
+x 44.9 y 3.7
+m1 (drill dia 3,5)
+
+%---------------------------
+% new Hispapanel version holes
+% 29x20 and 100x80
+%---------------------------
+x 37  y 20
+m1 (drill dia 3,5)
+x 108 y 80
+m1 (drill dia 3,5)
+
+% tool change
+                Z 20
+x 50    y 20    Z 40
+M1 (Tool Change 1mm Drill)
+%---------------------------
+% holes for electric connection
+%---------------------------
+x 102.75    y 33.5
+M1 (drill dia 1)
+x 102.75    y 10
+M1 (drill dia 1)
+
+x 50    y 20    Z 40
+M1 (Tool change 2mm D2)
+% switches
+x 53.3 y 12.2 z 5         % DCS cutout
+G1 F60
+                z-3
+G12 I 5
+G0              z 5
+
+G0 x 82.3  y 12.2     z 2 % Drift switch
+G1 F60
+                z-3
+G12 I 6.5
+G0                      z 2
+x 113.63 y 20.2             % Gain switch
+G1 F60
+                        z-3
+G12 I 6.5
+G0                      z 2
+                            % cutout for flir rocker
+x 110   y 45
+G1 F60
+                z 1
+%---------------------------
+%offset to left needed (line is right, tool is left)
+%---------------------------
+G42 D2                      % 2mm tool diameter in slot 6
+x 110   y 75.6  z-3
+x 120
+        y 34.5
+x 106.5
+        y 75.6
+x 115
+                z 2
+G0              z 20
+                            % cutout for up/down rocker
+x 31    y 17    z 2         % upper part
+G1
+x 17.55 y 17    z-3
+        y 25.1
+x 31.55
+        y 17
+X 22
+x 20            z 2
+G0
+x 20    y 6                 % lower part
+G1      y 10.2  z-3
+x 31.55
+        y 2.1
+x 17.55
+        y 10.2
+X 25
+x 28            z 2
+G0              z 20
+%---------------------------
+% semi-circular cutout for top row
+%---------------------------
+x 35    y 91.65 z 2         % left most button center
+G1
+x 40    y 91.65 z-3
+x 45    y 96.52
+x 123.2
+        y 83.95
+x 31.1
+%        x 29.54
+        y 96.52
+x 50 
+z 0
+G0 z 2
+x 15    y 91.65
+G1 x 20    y 96.52 z-3
+x 27.9
+        y 83.95
+x 12.3
+        y 96.52
+x 27.9
+G0              z 20
+%---------------------------
+% main button area cutout
+%---------------------------
+x 18    y 70    z 2
+G1 x 18 y 80.15 z-3
+x 94.62
+G40                     % corner cleaner top right
+x 94.62 y 80.15         
+x 92.62 y 78.15
+G42 D2
+X 94.62 Y 80.15
+        y 41            % bend
+x 89.9
+        y 26.38
+G40
+x 89.9  y 26.38
+x 87.9  y 28.38
+G42 D2
+x 89.9  y 26.38
+x 16.25
+
+        y 80.15
+x 25            z 2
+G0              Z 40
+G40                     % end of compensation
+M1 (TOOL CHANGE Graving needle)
+% FLIR line down
+x 94    y 80 Z 2
+G1 F80 z-0.3
+x 102.75    y 82
+            y 35.5
+x 113.13                % GAIN incursion
+            y 28.5
+x 102.75
+            y 12.7
+x 91.33                 % NORM
+            y 21.91
+x 69.85                 % DRIFT C/O
+            y 2.99
+x 113.13                % WARN RESET
+            y 11.6      % AUTO
+x 123.25
+            y 82        % LVL, CONT, RECT DEPR
+x 138
+G0 z 10
+x 127.3     y 10.3      % insulation of mount hole
+                    z 2
+G1                  z-0.3
+G3 x 124.3  y 7.3  I 3
+G1 
+x 124.3     y-1.5
+G0 z 10
+x 44.45     y-1.5
+                    z 2
+G1                  z-0.3
+            y 3.3
+x 64.43                 % Arrow
+            y 22        % SEQ
+x 42.93                 % Arrow
+            y 7         % RET
+x 30
+G0 z 40
+M1 (RELOCATE LEFT CLAMP)
+x 17.8      y 6.35  z-0.3
+G1
+x 12.5
+            y 82        % OFF, BRT, ICP, SYM
+x 19        y 77.5
+G0
+% outer contur
+x 0     y 0     z 40
+M1 (TOOL CHANGE 2mm ENDMILL)
+x 15    y-3     z 5
+G1 F60
+%offset to left needed (line is right, tool is left)
+G41 D2 % 2mm tool diameter in slot 6
+x 15    y 0     z-3
+x 4     y 0
+G2 x 0  y 4     J 4
+G1 x0   y 10
+X 9
+        Y 90
+X 0
+        y 96
+G2 x 4  y 100   I 4
+G1 F140
+x 132
+F60
+G2 x 136 y 96   J-4
+G1      y 90
+x 127
+        y 10
+x 136
+        y 4
+G2 x 132 y 0    I-4
+G1 x 127
+G40
+% end of compensation
+g0
+                z 20
+x 0     y 0
+m5
+m30
+%last line
+
