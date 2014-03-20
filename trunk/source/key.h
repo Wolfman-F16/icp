@@ -1,8 +1,8 @@
 /*
  * key.h
  *
- *  Created on: 01.01.2010
- *      Author: Wolfman
+ * Copyright: (c) 2012 by Wolfgang Engelhard
+ * License: GNU GPL v2 (see License.txt)
  *
  *  REQUIRED DEFINITIONS
  *  ALL_KEYS            // consist of KEY_0 .. KEY_n

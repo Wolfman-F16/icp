@@ -1,9 +1,8 @@
 /*
  * main.h
  *
- *  Created on: 18.12.2009
- *      Author: Wolfman
- *
+ * Copyright: (c) 2012 by Wolfgang Engelhard
+ * License: GNU GPL v2 (see License.txt)
  */
 
 #ifndef MAIN_H_

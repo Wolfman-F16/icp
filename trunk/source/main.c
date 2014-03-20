@@ -1,8 +1,8 @@
 /*
  * main.c
  *
- *  Created on: 01.05.2013
- *      Author: Wolfman
+ * Copyright: (c) 2012 by Wolfgang Engelhard
+ * License: GNU GPL v2 (see License.txt)
  */
 
 #ifndef F_CPU

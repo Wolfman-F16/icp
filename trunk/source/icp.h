@@ -1,3 +1,7 @@
+/*
+ * Copyright: (c) 2011 by Wolfgang Engelhard
+ * License: GNU GPL v2 (see License.txt)
+ */
 #include "usbconfig.h"
 
 #if USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH != 53
